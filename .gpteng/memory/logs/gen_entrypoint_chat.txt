@@ -1,0 +1,467 @@
+
+2024-09-24T16:34:33.385613
+================================ System Message ================================
+
+You will get information about a codebase that is currently on disk in the current folder.
+The user will ask you to write a script that runs the code in a specific way.
+You will answer with code blocks that include all the necessary terminal commands.
+Do not install globally. Do not use sudo.
+Do not explain the code, just give the commands.
+Do not use placeholders, use example values (like . for a folder argument) if necessary.
+
+
+================================ Human Message =================================
+
+
+        Make a unix script that
+        a) installs dependencies
+        b) runs all necessary parts of the codebase (in parallel if necessary)
+        
+Information about the codebase:
+
+```
+File: index.html
+1 <!DOCTYPE html>
+2 <html lang="en">
+3 <head>
+4     <meta charset="UTF-8">
+5     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+6     <title>GPA Calculator System</title>
+7     <link rel="stylesheet" href="styles.css">
+8     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+9 </head>
+10 <body>
+11     <div id="navbar"></div>
+12     <div class="container">
+13         <h1>Welcome to the GPA Calculator System</h1>
+14         <p>Please use the navigation bar to access different functionalities.</p>
+15     </div>
+16     <script src="utils.js"></script>
+17     <script>
+18         // document.getElementById('navbar').innerHTML = fetch('navbar.html').then(response => response.text());
+
+fetch('navbar.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('navbar').innerHTML = data;
+  })
+  .catch(error => console.error('Error loading the navbar:', error));
+19     </script>
+20 </body>
+21 </html>
+
+File: navbar.html
+1 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+2     <a class="navbar-brand" href="index.html">GPA Calculator</a>
+3     <div class="collapse navbar-collapse" id="navbarNav">
+4         <ul class="navbar-nav">
+5             <li class="nav-item">
+6                 <a class="nav-link" href="login.html">Login</a>
+7             </li>
+8             <li class="nav-item">
+9                 <a class="nav-link" href="register.html">Register</a>
+10             </li>
+11             <li class="nav-item">
+12                 <a class="nav-link" href="gpa.html">Calculate GPA</a>
+13             </li>
+14             <li class="nav-item">
+15                 <a class="nav-link" href="transcript.html">Transcript Application</a>
+16             </li>
+17         </ul>
+18     </div>
+19 </nav>
+
+File: login.html
+1 <!DOCTYPE html>
+2 <html lang="en">
+3 <head>
+4     <meta charset="UTF-8">
+5     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+6     <title>Login</title>
+7     <link rel="stylesheet" href="styles.css">
+8     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+9 </head>
+10 <body>
+11     <div id="navbar"></div>
+12     <div class="container">
+13         <h2>Login</h2>
+14         <form id="loginForm">
+15             <div class="form-group">
+16                 <label for="username">Username</label>
+17                 <input type="text" class="form-control" id="username" required>
+18             </div>
+19             <div class="form-group">
+20                 <label for="password">Password</label>
+21                 <input type="password" class="form-control" id="password" required>
+22             </div>
+23             <button type="submit" class="btn btn-primary">Login</button>
+24         </form>
+25     </div>
+26     <script src="utils.js"></script>
+27     <script src="auth.js"></script>
+28     <script>
+29         // document.getElementById('navbar').innerHTML = fetch('navbar.html').then(response => response.text());
+
+fetch('navbar.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('navbar').innerHTML = data;
+  })
+  .catch(error => console.error('Error loading the navbar:', error));
+30     </script>
+31 </body>
+32 </html>
+
+File: register.html
+1 <!DOCTYPE html>
+2 <html lang="en">
+3 <head>
+4     <meta charset="UTF-8">
+5     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+6     <title>Register</title>
+7     <link rel="stylesheet" href="styles.css">
+8     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+9 </head>
+10 <body>
+11     <div id="navbar"></div>
+12     <div class="container">
+13         <h2>Register</h2>
+14         <form id="registerForm">
+15             <div class="form-group">
+16                 <label for="username">Username</label>
+17                 <input type="text" class="form-control" id="username" required>
+18             </div>
+19             <div class="form-group">
+20                 <label for="password">Password</label>
+21                 <input type="password" class="form-control" id="password" required>
+22             </div>
+23             <button type="submit" class="btn btn-primary">Register</button>
+24         </form>
+25     </div>
+26     <script src="utils.js"></script>
+27     <script src="auth.js"></script>
+28     <script>
+29         // document.getElementById('navbar').innerHTML = fetch('navbar.html').then(response => response.text());
+
+fetch('navbar.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('navbar').innerHTML = data;
+  })
+  .catch(error => console.error('Error loading the navbar:', error));
+30     </script>
+31 </body>
+32 </html>
+
+File: gpa.html
+1 <!DOCTYPE html>
+2 <html lang="en">
+3 <head>
+4     <meta charset="UTF-8">
+5     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+6     <title>Calculate GPA</title>
+7     <link rel="stylesheet" href="styles.css">
+8     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+9 </head>
+10 <body>
+11     <div id="navbar"></div>
+12     <div class="container">
+13         <h2>Calculate GPA</h2>
+14         <form id="gpaForm">
+15             <div id="coursesContainer">
+16                 <div class="course">
+17                     <div class="form-group">
+18                         <label for="courseName">Course Name</label>
+19                         <input type="text" class="form-control" name="courseName" required>
+20                     </div>
+21                     <div class="form-group">
+22                         <label for="courseCode">Course Code</label>
+23                         <input type="text" class="form-control" name="courseCode" required>
+24                     </div>
+25                     <div class="form-group">
+26                         <label for="creditHours">Credit Hours</label>
+27                         <input type="number" class="form-control" name="creditHours" required>
+28                     </div>
+29                     <div class="form-group">
+30                         <label for="marks">Marks</label>
+31                         <input type="number" class="form-control" name="marks" required>
+32                     </div>
+33                     <div class="form-group">
+34                         <label for="semester">Semester</label>
+35                         <input type="text" class="form-control" name="semester" required>
+36                     </div>
+37                 </div>
+38             </div>
+39             <button type="button" class="btn btn-secondary" id="addCourse">Add Another Course</button>
+40             <button type="submit" class="btn btn-primary">Calculate GPA</button>
+41         </form>
+42         <div id="gpaResult"></div>
+43     </div>
+44     <script src="utils.js"></script>
+45     <script src="gpa.js"></script>
+46     <script>
+47         // document.getElementById('navbar').innerHTML = fetch('navbar.html').then(response => response.text());
+
+fetch('navbar.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('navbar').innerHTML = data;
+  })
+  .catch(error => console.error('Error loading the navbar:', error));
+48     </script>
+49 </body>
+50 </html>
+
+File: transcript.html
+1 <!DOCTYPE html>
+2 <html lang="en">
+3 <head>
+4     <meta charset="UTF-8">
+5     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+6     <title>Transcript Application</title>
+7     <link rel="stylesheet" href="styles.css">
+8     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+9 </head>
+10 <body>
+11     <div id="navbar"></div>
+12     <div class="container">
+13         <h2>Submit Transcript Application</h2>
+14         <form id="transcriptForm">
+15             <div class="form-group">
+16                 <label for="studentName">Student Name</label>
+17                 <input type="text" class="form-control" id="studentName" required>
+18             </div>
+19             <div class="form-group">
+20                 <label for="studentId">Student ID</label>
+21                 <input type="text" class="form-control" id="studentId" required>
+22             </div>
+23             <div class="form-group">
+24                 <label for="program">Program</label>
+25                 <input type="text" class="form-control" id="program" required>
+26             </div>
+27             <div class="form-group">
+28                 <label for="contactInfo">Contact Information</label>
+29                 <input type="text" class="form-control" id="contactInfo" required>
+30             </div>
+31             <button type="submit" class="btn btn-primary">Submit Application</button>
+32         </form>
+33     </div>
+34     <script src="utils.js"></script>
+35     <script src="transcript.js"></script>
+36     <script>
+37         // document.getElementById('navbar').innerHTML = fetch('navbar.html').then(response => response.text());
+
+fetch('navbar.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('navbar').innerHTML = data;
+  })
+  .catch(error => console.error('Error loading the navbar:', error));
+38     </script>
+39 </body>
+40 </html>
+
+File: auth.js
+1 // auth.js
+2 
+3 document.getElementById('loginForm').addEventListener('submit', async (event) => {
+4     event.preventDefault();
+5     const username = document.getElementById('username').value;
+6     const password = document.getElementById('password').value;
+7 
+8     try {
+9         const response = await fetch('http://localhost:3000/api/users/login', {
+10             method: 'POST',
+11             headers: {
+12                 'Content-Type': 'application/json'
+13             },
+14             body: JSON.stringify({ username, password })
+15         });
+16 
+17         const data = await response.json();
+18         if (response.ok) {
+19             localStorage.setItem('token', data.token);
+20             alert('Login successful');
+21             window.location.href = 'index.html';
+22         } else {
+23             alert(data.message);
+24         }
+25     } catch (error) {
+26         console.error('Error:', error);
+27         alert('An error occurred. Please try again.');
+28     }
+29 });
+30 
+31 document.getElementById('registerForm').addEventListener('submit', async (event) => {
+32     event.preventDefault();
+33     const username = document.getElementById('username').value;
+34     const password = document.getElementById('password').value;
+35 
+36     try {
+37         const response = await fetch('http://localhost:3000/api/users/register', {
+38             method: 'POST',
+39             headers: {
+40                 'Content-Type': 'application/json'
+41             },
+42             body: JSON.stringify({ username, password })
+43         });
+44 
+45         const data = await response.json();
+46         if (response.ok) {
+47             alert('Registration successful');
+48             window.location.href = 'login.html';
+49         } else {
+50             alert(data.message);
+51         }
+52     } catch (error) {
+53         console.error('Error:', error);
+54         alert('An error occurred. Please try again.');
+55     }
+56 });
+
+File: gpa.js
+1 // gpa.js
+2 
+3 document.getElementById('addCourse').addEventListener('click', () => {
+4     const courseTemplate = document.querySelector('.course').cloneNode(true);
+5     document.getElementById('coursesContainer').appendChild(courseTemplate);
+6 });
+7 
+8 document.getElementById('gpaForm').addEventListener('submit', async (event) => {
+9     event.preventDefault();
+10     const courses = Array.from(document.querySelectorAll('.course')).map(course => ({
+11         courseName: course.querySelector('[name="courseName"]').value,
+12         courseCode: course.querySelector('[name="courseCode"]').value,
+13         creditHours: parseInt(course.querySelector('[name="creditHours"]').value),
+14         marks: parseInt(course.querySelector('[name="marks"]').value),
+15         semester: course.querySelector('[name="semester"]').value
+16     }));
+17 
+18     try {
+19         const token = localStorage.getItem('token');
+20         const response = await fetch('http://localhost:3000/api/gpa/calculate', {
+21             method: 'POST',
+22             headers: {
+23                 'Content-Type': 'application/json',
+24                 'Authorization': `Bearer ${token}`
+25             },
+26             body: JSON.stringify({ courses })
+27         });
+28 
+29         const data = await response.json();
+30         if (response.ok) {
+31             document.getElementById('gpaResult').innerText = `Your GPA is: ${data.gpa}`;
+32         } else {
+33             alert(data.message);
+34         }
+35     } catch (error) {
+36         console.error('Error:', error);
+37         alert('An error occurred. Please try again.');
+38     }
+39 });
+
+File: transcript.js
+1 // transcript.js
+2 
+3 document.getElementById('transcriptForm').addEventListener('submit', async (event) => {
+4     event.preventDefault();
+5     const studentName = document.getElementById('studentName').value;
+6     const studentId = document.getElementById('studentId').value;
+7     const program = document.getElementById('program').value;
+8     const contactInfo = document.getElementById('contactInfo').value;
+9 
+10     try {
+11         const token = localStorage.getItem('token');
+12         const response = await fetch('http://localhost:3000/api/transcripts/submit', {
+13             method: 'POST',
+14             headers: {
+15                 'Content-Type': 'application/json',
+16                 'Authorization': `Bearer ${token}`
+17             },
+18             body: JSON.stringify({ studentName, studentId, program, contactInfo })
+19         });
+20 
+21         const data = await response.json();
+22         if (response.ok) {
+23             alert('Transcript application submitted successfully');
+24         } else {
+25             alert(data.message);
+26         }
+27     } catch (error) {
+28         console.error('Error:', error);
+29         alert('An error occurred. Please try again.');
+30     }
+31 });
+
+File: utils.js
+1 // utils.js
+2 
+3 // Utility function to fetch and parse JSON
+4 async function fetchJSON(url, options = {}) {
+5     const response = await fetch(url, options);
+6     if (!response.ok) {
+7         const errorData = await response.json();
+8         throw new Error(errorData.message || 'An error occurred');
+9     }
+10     return response.json();
+11 }
+12 
+13 // Utility function to get JWT token from localStorage
+14 function getToken() {
+15     return localStorage.getItem('token');
+16 }
+17 
+18 // Utility function to set JWT token in localStorage
+19 function setToken(token) {
+20     localStorage.setItem('token', token);
+21 }
+22 
+23 // Utility function to remove JWT token from localStorage
+24 function removeToken() {
+25     localStorage.removeItem('token');
+26 }
+
+File: styles.css
+1 /* styles.css */
+2 
+3 body {
+4     padding-top: 56px;
+5 }
+6 
+7 .container {
+8     margin-top: 20px;
+9 }
+10 
+11 .course {
+12     margin-bottom: 20px;
+13 }
+
+File: package.json
+1 {
+2   "name": "gpa-calculator-frontend",
+3   "version": "1.0.0",
+4   "description": "Frontend for GPA Calculator System",
+5   "main": "index.html",
+6   "scripts": {
+7     "start": "live-server"
+8   },
+9   "dependencies": {
+10     "live-server": "^1.2.1"
+11   },
+12   "author": "Your Name",
+13   "license": "ISC"
+14 }
+
+```
+
+================================== Ai Message ==================================
+
+```sh
+#!/bin/bash
+
+# Install dependencies
+npm install
+
+# Run the codebase
+npx live-server
+```

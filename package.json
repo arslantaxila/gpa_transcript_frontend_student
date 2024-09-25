@@ -1,0 +1,14 @@
+{
+  "name": "gpa-calculator-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for GPA Calculator System",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server"
+  },
+  "dependencies": {
+    "live-server": "^1.2.1"
+  },
+  "author": "Your Name",
+  "license": "ISC"
+}
